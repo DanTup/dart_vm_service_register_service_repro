@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:foo/shared.dart';
 import 'package:vm_service_lib/vm_service_lib.dart';
 
@@ -16,13 +18,15 @@ Future<void> main() async {
       await Future.delayed(const Duration(seconds: 1));
 
       print('Calling to return success!');
-      service.callMethod(e.method);
+      final res1 = await service.callMethod(e.method);
+      print('Got: ${res1.type}, ${jsonEncode(res1.json)}');
 
       print('');
       await Future.delayed(const Duration(seconds: 1));
 
       print('Got service event, calling to return something else!');
-      service.callMethod(e.method, args: {'fail': true});
+      final res2 = await service.callMethod(e.method, args: {'fail': true});
+      print('Got: ${res2.type}, ${jsonEncode(res2.json)}');
     }
   });
 }

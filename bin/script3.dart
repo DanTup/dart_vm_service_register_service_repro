@@ -10,7 +10,10 @@ Future<void> main() async {
 
   service.registerServiceCallback(doThingService, (params) async {
     if (params != null && params['fail'] == true) {
-      return {'result': 'anything'};
+      return {
+        //'result': 'anything'
+        'result': {'type': 'Failure'}
+      };
     } else {
       return {'result': Success().toJson()};
     }
